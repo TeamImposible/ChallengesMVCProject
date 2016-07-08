@@ -10,6 +10,19 @@ namespace Challenger.Controllers
     {
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return View("IndexForAllUsers");
+            }
+            
+        }
+
+        public ActionResult IndexForAllUsers()
+        {
             return View();
         }
 

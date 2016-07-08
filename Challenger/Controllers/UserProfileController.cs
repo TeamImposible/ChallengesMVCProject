@@ -45,5 +45,10 @@ namespace Challenger.Controllers
 
             return View(model);
         }
+
+        public ActionResult MyProfile()
+        {
+            return View();
+        }
     }
 }

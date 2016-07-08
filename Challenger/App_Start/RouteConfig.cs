@@ -13,6 +13,11 @@ namespace Challenger
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            /*if (!Controller.User.Identity.IsAuthenticated)
+            {
+                routes.IgnoreRoute("Home/IndexLoggedIn");
+            }*/
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

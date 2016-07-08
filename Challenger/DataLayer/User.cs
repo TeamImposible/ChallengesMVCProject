@@ -4,25 +4,20 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Challenger.DataLayer
 {
     public class User : IdentityUser
     {
-        private string defaultEmail = "DefaultEmail@email.com";
-
-        public User()
-        {
-            base.Email = defaultEmail;
-        }
-        public string Password { get; set; }
+        public int Password { get; set; }
 
         public int Level { get; set; }
 
         public string Description { get; set; }
 
         public int CompletedChallenges { get; set; }
-
+        
         [InverseProperty("Assignee")]
         public virtual ICollection<Task> AssignedTasks { get; set; }
 

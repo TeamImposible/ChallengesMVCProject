@@ -5,6 +5,22 @@ namespace Challenger.DataLayer
 {
     public class Task
     {
+        public enum ChallengeStatus
+        {
+            Sent = 0,
+            Accept = 1,
+            Decline = 2,
+            InProcess = 3,
+            Done = 4
+        }
+
+        public enum ChallengeType
+        {
+            OneTime = 0,
+            StepByStep = 1,
+            Quantity = 2
+        }
+
         public int ID { get; set; }
 
         [Required]
@@ -14,10 +30,12 @@ namespace Challenger.DataLayer
         public int ChallengerID { get; set; }
 
         public int AssigneeID { get; set; }
-
+        
         public string Title { get; set; }
 
-        public int Status { get; set; }
+        public ChallengeType Type { get; set; }
+
+        public ChallengeStatus Status { get; set; }
 
         public string DueDate { get; set; }
 

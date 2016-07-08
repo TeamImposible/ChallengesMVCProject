@@ -77,7 +77,8 @@ namespace Challenger.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -130,6 +131,10 @@ namespace Challenger.Controllers
                     ModelState.AddModelError("", "Invalid code.");
                     return View(model);
             }
+            //SelectListItem a = new SelectListItem {Text = "Profile", Value = "1", Selected = true};
+            //SelectListItem b = new SelectListItem {Text = "Settings", Value = "2"};
+
+
         }
 
         //
