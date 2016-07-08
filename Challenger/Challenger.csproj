@@ -210,6 +210,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChallengeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
@@ -240,8 +241,13 @@
     <Compile Include="Migrations\201607081431184_Test2.Designer.cs">
       <DependentUpon>201607081431184_Test2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607082006097_Challenge.cs" />
+    <Compile Include="Migrations\201607082006097_Challenge.Designer.cs">
+      <DependentUpon>201607082006097_Challenge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ChallengeViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TaskViewModels.cs" />
     <Compile Include="Models\UserProfileViewModels.cs" />
@@ -302,6 +308,7 @@
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\Home\IndexForAllUsers.cshtml" />
     <Content Include="Views\UserProfile\MyProfile.cshtml" />
+    <Content Include="Views\Challenge\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607081431184_Test2.resx">
       <DependentUpon>201607081431184_Test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607082006097_Challenge.resx">
+      <DependentUpon>201607082006097_Challenge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

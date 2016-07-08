@@ -1,0 +1,29 @@
+﻿@model Challenger.Models.CreateChallengeViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Crete Challenge</title>
+</head>
+<body>
+    <div>
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title)
+            </dt>
+            <dt>
+                @Html.DisplayNameFor(m => m.Type)
+                @Html.EnumDropDownListFor(m => m.Type)
+            </dt>
+
+        </dl>
+        <input type="submit"/>
+    </div>
+</body>
+</html>
