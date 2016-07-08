@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Challenger.DataLayer
@@ -11,7 +12,8 @@ namespace Challenger.DataLayer
             Accept = 1,
             Decline = 2,
             InProcess = 3,
-            Done = 4
+            Done = 4,
+            Expired = 5
         }
 
         public enum ChallengeType
@@ -37,7 +39,7 @@ namespace Challenger.DataLayer
 
         public ChallengeStatus Status { get; set; }
 
-        public string DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         public int Quantity { get; set; }
 
