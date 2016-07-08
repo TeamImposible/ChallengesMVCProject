@@ -1,0 +1,42 @@
+﻿@model Challenger.Models.UserProfileViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>UserProfileViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentLevelProgress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentLevelProgress)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
