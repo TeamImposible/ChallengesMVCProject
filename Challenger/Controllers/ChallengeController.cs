@@ -3,21 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Challenger.DataLayer;
+using Challenger.Models;
 
 namespace Challenger.Controllers
 {
     public class ChallengeController : Controller
     {
-        // GET: Challenge
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        public static DbContext Context = DbContext.Create();
         // GET: Challenge/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Task dataModel = Context.Tasks.First(x => x.ID == id);
+            CreateChallengeViewModel model = new CreateChallengeViewModel()
+            {
+                Assignee = dataModel.Assignee.UserName,
+                Challenger = dataModel.Challenger.UserName,
+                Description = dataModel.Description,
+                Quantity = dataModel.Quantity,
+                Title = dataModel.Title,
+                Type = dataModel.Type,
+                DueDate = dataModel.DueDate
+            };
+            return View(model);
         }
 
         // GET: Challenge/Create
@@ -28,62 +36,57 @@ namespace Challenger.Controllers
 
         // POST: Challenge/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CreateChallengeViewModel model)
         {
-            try
+            Task taskDataModel = new Task()
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
+                Title = model.Title,
+                Type = model.Type,
+                Quantity = model.Quantity,
+                DueDate = model.DueDate,
+                Challenger = Context.Users.First(x => x.UserName == model.Challenger),
+                Assignee = Context.Users.First(x => x.UserName == model.Assignee),
+                Description = model.Description,
+                CreationDate = DateTime.Now
+            };
+            Notification notificationDataModel = new Notification()
             {
-                return View();
-            }
+                Action = Notification.NotificationAction.Sent,
+                Recipient = taskDataModel.Assignee,
+                Sender = taskDataModel.Challenger
+            };
+            Context.Tasks.Add(taskDataModel);
+            Context.Notifications.Add(notificationDataModel);
+            Context.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
-        // GET: Challenge/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult UpdateChallenge(int id)
         {
-            return View();
+            Task dataModel = Context.Tasks.First(x => x.ID == id);
+            UpdateChallengeViewModel model = new UpdateChallengeViewModel()
+            {
+                Assignee = dataModel.Assignee.UserName,
+                Challenger = dataModel.Challenger.UserName,
+                Description = dataModel.Description,
+                Title = dataModel.Title,
+                Type = dataModel.Type,
+                DueDate = dataModel.DueDate,
+                Status = dataModel.Status,
+                ID = dataModel.ID,
+                QuantityLeft = dataModel.Quantity
+            };
+            return View(model);
         }
 
-        // POST: Challenge/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult UpdateChallenge(UpdateChallengeViewModel model)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Challenge/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Challenge/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Task dataModel = Context.Tasks.First(x => x.ID == model.ID);
+            if (model.Type == Task.ChallengeType.OneTime)
+                dataModel.Status = Task.ChallengeStatus.Done;
+            dataModel.UpdateStatus();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

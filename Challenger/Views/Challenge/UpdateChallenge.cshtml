@@ -1,5 +1,9 @@
-﻿@using Challenger.DataLayer
-@model Challenger.Models.CreateChallengeViewModel
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Challenger.DataLayer
+@model Challenger.Models.UpdateChallengeViewModel
 
 @Scripts.Render("~/bundles/jquery")
 <div>
@@ -8,9 +12,8 @@
             <dt>
                 Challenger
                 <input id="Challenger" name="Challenger" type="text" value="@User.Identity.Name" disabled />
-                <input id="Challenger" name="Challenger" type="text" value="@User.Identity.Name" hidden />
                 Type
-                <select data-val="true" data-val-required="The Type field is required." id="Type" name="Type" onclick="if (this.selectedIndex == 0 || typeof (this.selectedIndex) == 'undefined') document.getElementById('Quantity').style.visibility = 'hidden'; else document.getElementById('Quantity').style.visibility = 'visible';">
+                <select data-val="true" data-val-required="The Type field is required." id="Type" name="Type" onclick="if (this.selectedIndex != 2 || typeof (this.selectedIndex) == 'undefined') document.getElementById('Quantity').style.visibility = 'hidden'; else document.getElementById('Quantity').style.visibility = 'visible';">
                     <option selected="selected" value="0">OneTime</option>
                     <option value="1">StepByStep</option>
                     <option value="2">Quantity</option>
@@ -28,8 +31,8 @@
                 @Html.TextBoxFor(m => m.Title)
 
                 <p id="Quantity">
-                    Quantity
-                    <input data-val="true" data-val-number="The field Quantity must be a number." id="Quantity" name="Quantity" type="text" value="" />
+                    Quantity Left
+                    <input data-val="true" data-val-number="The field Quantity must be a number." id="Quantity" name="Quantity" type="text" value="" disabled/>
                 </p>
             </dt>
             <dt>
@@ -43,9 +46,3 @@
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>
-
-<script>
-    $(function (e) {
-        document.getElementById('Quantity').style.visibility = 'hidden';
-    });
-</script>

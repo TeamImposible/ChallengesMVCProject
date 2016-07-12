@@ -1,6 +1,49 @@
 ﻿body {
     padding-top: 80px;
     padding-bottom: 20px;
+    background-color:white;
+}
+a {
+    color:white;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+.profile-picture {
+    width: 150px;
+    height: 150px;
+}
+
+.register a{
+    color:deepskyblue;
+}
+.visible {
+  visibility: visible;
+}
+.captcha {
+    padding-left: 195px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+a:active {
+    text-decoration: none;
+}
+a:link {
+    text-decoration: none;
+}
+
+.submit {
+    text-align: left;
+    padding-right: 1px;
+    padding-bottom: 1px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -23,3 +66,28 @@ textarea {
     max-width: 280px;
 }
 
+#partial a:link{
+    color:red;
+}
+
+.dropdownn {
+    color:white;
+}
+
+b {
+    padding-left: 15px;
+    padding-bottom: 30px;
+}
+
+.navigationbar {
+    padding-left: 1px;
+ 
+}
+
+.ranking {
+    padding-left: 25px;
+}
+
+.rect {
+  border-radius: 0 !important;
+}

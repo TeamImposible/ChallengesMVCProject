@@ -44,6 +44,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Glimpse.AspNet, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -213,11 +225,14 @@
     <Compile Include="Controllers\ChallengeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="DataLayer\DbContext.cs" />
     <Compile Include="DataLayer\Notification.cs" />
     <Compile Include="DataLayer\Task.cs" />
     <Compile Include="DataLayer\User.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,11 +260,35 @@
     <Compile Include="Migrations\201607082006097_Challenge.Designer.cs">
       <DependentUpon>201607082006097_Challenge.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607111046010_testvane.cs" />
+    <Compile Include="Migrations\201607111046010_testvane.Designer.cs">
+      <DependentUpon>201607111046010_testvane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607111143493_testvane1.cs" />
+    <Compile Include="Migrations\201607111143493_testvane1.Designer.cs">
+      <DependentUpon>201607111143493_testvane1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607111218067_FixedModels.cs" />
+    <Compile Include="Migrations\201607111218067_FixedModels.Designer.cs">
+      <DependentUpon>201607111218067_FixedModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607111434329_FinalNumber2.cs" />
+    <Compile Include="Migrations\201607111434329_FinalNumber2.Designer.cs">
+      <DependentUpon>201607111434329_FinalNumber2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607111437470_FinalNumber3.cs" />
+    <Compile Include="Migrations\201607111437470_FinalNumber3.Designer.cs">
+      <DependentUpon>201607111437470_FinalNumber3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607121213327_NotificationMigration.cs" />
+    <Compile Include="Migrations\201607121213327_NotificationMigration.Designer.cs">
+      <DependentUpon>201607121213327_NotificationMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ChallengeViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\TaskViewModels.cs" />
+    <Compile Include="Models\NotificationViewModels.cs" />
     <Compile Include="Models\UserProfileViewModels.cs" />
     <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -293,12 +332,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\UserProfile\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
@@ -307,8 +343,10 @@
     <Content Include="Views\UserProfile\View.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\Home\IndexForAllUsers.cshtml" />
-    <Content Include="Views\UserProfile\MyProfile.cshtml" />
     <Content Include="Views\Challenge\Create.cshtml" />
+    <Content Include="Views\Ranking\Index.cshtml" />
+    <Content Include="Views\Challenge\UpdateChallenge.cshtml" />
+    <Content Include="Views\UserProfile\OtherIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -339,6 +377,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607082006097_Challenge.resx">
       <DependentUpon>201607082006097_Challenge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607111046010_testvane.resx">
+      <DependentUpon>201607111046010_testvane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607111143493_testvane1.resx">
+      <DependentUpon>201607111143493_testvane1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607111218067_FixedModels.resx">
+      <DependentUpon>201607111218067_FixedModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607111434329_FinalNumber2.resx">
+      <DependentUpon>201607111434329_FinalNumber2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607111437470_FinalNumber3.resx">
+      <DependentUpon>201607111437470_FinalNumber3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607121213327_NotificationMigration.resx">
+      <DependentUpon>201607121213327_NotificationMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

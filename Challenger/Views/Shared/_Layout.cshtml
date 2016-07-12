@@ -4,11 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" />
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="nav navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -17,17 +19,23 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div class="navbar-collapse collapse"> 
+            <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        <h2><b>@Html.ActionLink("Home", "Index", "Home")</b>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <b>@Html.ActionLink("Create Challenge", "Create", "Challenge")</b>
-                        }
-                        </h2></li>
+                        <h3>
+                            <b>@Html.ActionLink("Home", "Index", "Home")</b>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <b>
+                                    <a class="navigationbar">@Html.ActionLink("Create challenge", "Create", "Challenge")</a>
+                                    <a class="ranking">@Html.ActionLink("Ranking", "Index", "Ranking")</a>
+
+                                </b>
+                            }
+                        </h3>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <div id="partial">@Html.Partial("_LoginPartial")</div>
             </div>
 
         </div>
@@ -36,7 +44,8 @@
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
