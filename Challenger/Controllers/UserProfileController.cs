@@ -16,6 +16,10 @@ namespace Challenger.Controllers
     {
         private DbContext db = DbContext.Create();
 
+        public ActionResult Redirect(string id)
+        {
+            return RedirectToAction("Create", "Challenge", new {username = id});
+        }
         // GET: UserProfile
         public ActionResult Index()
         {
@@ -25,13 +29,14 @@ namespace Challenger.Controllers
                 System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 string userId = User.Identity.GetUserId();
-                User user = db.Users.First(x => x.UserName == "random3");
-
+                User user = db.Users.First(x => x.UserName == User.Identity.Name);
+                
                 model.FullName = user.UserName;
                 model.Description = user.Description;
                 model.AssignedTasks = ParseTasks(db.Tasks.Where(x => x.Assignee.UserName == user.UserName).OrderByDescending(x => x.CreationDate).ToList());
                 model.CreatedTasks = ParseTasks(db.Tasks.Where(x => x.Challenger.UserName == user.UserName).OrderByDescending(x => x.CreationDate).ToList());
                 model.CurrentLevel = user.Level;
+                
             }
 
             return View(model);
@@ -68,7 +73,7 @@ namespace Challenger.Controllers
                     Type = task.Type,
                     DueDate = task.DueDate,
                     Assignee = task.Assignee.UserName,
-                    Status = task.Status
+                    Status = task.ActiveStatus
                 });
             }
             return models;
@@ -89,6 +94,22 @@ namespace Challenger.Controllers
         public ActionResult MyProfile()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangeDescription(UserProfileViewModel model)
+        {
+            try
+            {
+                User dataModel = db.Users.First(x => x.UserName == model.FullName);
+                if (model.Description.Length > 100)
+                throw new Exception();
+                dataModel.Description = model.Description;
+
+                db.SaveChanges();
+            }
+            catch(Exception){  }
+            return RedirectToAction("Index", "UserProfile");
         }
     }
 }

@@ -40,6 +40,21 @@ namespace Challenger.DataLayer
         [Required]
         public ChallengeStatus Status { get; set; }
 
+        public ChallengeStatus ActiveStatus
+        {
+            get
+            {
+                if (Status == ChallengeStatus.Done || Status == ChallengeStatus.Decline ||
+                    Status == ChallengeStatus.Expired)
+                    return this.Status;
+                else if (DueDate != null && CheckForExpired())
+                {
+                    Status = ChallengeStatus.Expired;
+                }
+                return Status;
+            }
+        }
+
         [Required]
         public string Description { get; set; }
 
@@ -51,26 +66,6 @@ namespace Challenger.DataLayer
 
         [Required]
         public DateTime CreationDate { get; set; }
-
-        public void UpdateStatus()
-        {
-            
-            if (Status == ChallengeStatus.Done || Status == ChallengeStatus.Decline || Status == ChallengeStatus.Expired)
-                return;
-            if (DueDate != null && CheckForExpired())
-            {
-                Status = ChallengeStatus.Expired;
-                return;
-            }
-            if (Status == ChallengeStatus.InProcess)
-            {
-                if ((Type == ChallengeType.Quantity || Type == ChallengeType.StepByStep) && Quantity <= 0)
-                {
-                    Status = ChallengeStatus.Done;
-                    return;
-                }
-            }
-        }
 
         public bool CheckForExpired()
         {

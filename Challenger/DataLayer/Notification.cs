@@ -37,5 +37,14 @@ namespace Challenger.DataLayer
 
         [Required]
         public virtual User Recipient { get; set; }
+
+        [Required]
+        public int ChallengeID { get; set; }
+
+        [Required]
+        public virtual Task Challenge { get; set; }
+
+        [Required]
+        public DateTime CreationDate { get; set; }
     }
 }

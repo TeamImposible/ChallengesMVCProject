@@ -6,11 +6,38 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
+        <li>
+            <div class="btn-group button">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Notifications
+                </button>
+                <div class="dropdown-menu notification-menu">
+                    <a class="dropdown" id ="dropdown-menu-list" href="#">
+                        <script>
+                            $.get("/api/Notification").done(function (result) {
+                                for (var i = 0; i < result.length; i++) {
+                                    console.log(result[i].message);
+                                            $(".notification-menu").append(
+                                                    '<a href="/Challenge/RedirectToChallenge/' + result[i].ChallengeId + '"><div class="notification">'
+                                                    + result[i].message + '</div></a>');
+                                        }
+                                    } ).fail (function (result) {
+                                        $(".dropdown-menu").append(
+                                            '<div class="notification">' +
+                                            "No notifications" +
+                                        '</div>');
+                             });
+                        </script>
+                    </a>
+                </div>
+            </div>
+        </li>
+
         <li class="dropdown">
             <a href="#" class="dropdown-toggle dropdownn" data-toggle="dropdown"><b class="dropdownn">@String.Format("Hello {0}!", User.Identity.Name)</b><b></b></a>
             <ul class="dropdown-menu dropdownn">
-                <li>@Html.ActionLink("My Profile", "Index", "UserProfile")</li>
-                <li><a class="navigationbar" href="#" data-toggle="modal" data-target="#settingsModal" id="home"><b>Settings</b></a></li>
+                <li class="myprofile">@Html.ActionLink("My Profile", "Index", "UserProfile")</li>
+                <li><a class="navigationbar" href="#" data-toggle="modal" data-target="#settingsModal" id="home">Settings</a></li>
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
             </ul>
         </li>

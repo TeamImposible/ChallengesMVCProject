@@ -15,12 +15,13 @@ namespace Challenger.Controllers
 
         public ActionResult Index(int id)
         {
+            Context = DbContext.Create();
             if (User.Identity.IsAuthenticated)
             {
                 HomeChallengesViewModel challenges =new HomeChallengesViewModel();
                 List<Task> tasks = Context.Tasks.OrderByDescending(x => x.CreationDate).ToList();
                 challenges.Challenges = new List<SmallChallengeViewModel>();
-                for (int i = id; i < id + 10; i++)
+                for (int i = 1 * id; i < (1 * id) + 10; i++)
                 {
                     try
                     {
@@ -31,7 +32,7 @@ namespace Challenger.Controllers
                             DueDate = tasks[i].DueDate,
                             Title = tasks[i].Title,
                             Type = tasks[i].Type,
-                            Status = tasks[i].Status
+                            Status = tasks[i].ActiveStatus,ID = tasks[i].ID
                         });
                     }
                     catch (Exception)

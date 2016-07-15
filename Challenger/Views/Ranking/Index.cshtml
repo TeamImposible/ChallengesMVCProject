@@ -32,13 +32,42 @@
             <tr>
                 <td>
                     @(i + 1)
+                    @if (i == 0)
+                    {
+
+
+
+                        <img src="~/Icons/GoldStar.png" id="input_img">
+
+                    }
+
+                    @if (i == 1)
+                    {
+
+
+
+                        <img src="~/Icons/SilverStar.png" id="input_img">
+
+                    }
+
+                    @if (i == 2)
+                    {
+
+
+
+                        <img src="~/Icons/BronzeStar.png" id="input_img">
+
+                    }
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => Model.Users[i].Level)
                 </td>
-                <th>@Html.ActionLink(Model.Users[i].Name, "OtherIndex", "UserProfile", new {username = Model.Users[i].Name}, null)
+                <th>
+                    @Html.ActionLink(Model.Users[i].Name, "OtherIndex", "UserProfile", new { username = Model.Users[i].Name }, new { @class = "username" })
                 </th>
                 <td>
+                    <img alt="Level" src="~/Icons/checkbox.png" id="input_img">
                     @Html.DisplayFor(modelItem => Model.Users[i].CompletedChallenges)
                 </td>
             </tr>

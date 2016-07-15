@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Challenger.DataLayer
+@model Challenger.Models.FullChallengeViewModel
+
+@Scripts.Render("~/bundles/jquery")
+<div>
+    <form method="post" action="@Url.Action("Create", "Challenge")">
+        <dl>
+            <dt>
+                Challenger
+                <input id="Challenger" class="form-control" name="Challenger" type="text" value="@Html.DisplayFor(x => x.Challenger)" disabled />
+                <br />
+                Type
+                <select data-val="true" data-val-required="The Type field is required." id="Type" name="Type" disabled>
+                    <option selected ="selected" disabled>@Html.DisplayFor(x => x.Type)</option>
+                </select>
+
+                @if (!(Model.DueDate == null))
+                {
+                    <br />
+                    @Html.DisplayNameFor(m => m.DueDate)
+                    @*@Html.TextBoxFor(m => m.DueDate)*@
+                    <input id="DueDate" class="form-control" name="DueDate" type="text" value="@Html.DisplayFor(x => x.DueDate)" disabled />
+                }
+            </dt>
+            <dt>
+                <br />
+                @Html.DisplayNameFor(m => m.Assignee)
+                @*@Html.TextBoxFor(m => m.Assignee)*@
+                <input id="Assignee" name="Assignee" class="form-control" type="text" value="@Html.DisplayFor(x => x.Assignee)" disabled />
+            </dt>
+            <dt id="">
+                <br />
+                @Html.DisplayNameFor(m => m.Title)
+                @*@Html.TextBoxFor(m => m.Title)*@
+                <input id="Title" name="Title" type="text" class="form-control" value="@Html.DisplayFor(x => x.Title)" disabled />
+
+                <p id="Quantityy">
+                    @if (Html.DisplayFor(x => x.Type).ToString() != (Task.ChallengeType.OneTime).ToString()) {
+                        <p>Quantity
+                        </p>
+                        <input data-val = "true" class="form-control" data-val-number  = "The field Quantity must be a number." id = "Quantity" name = "Quantity" type = "text" value = "@Html.DisplayFor(x => x.Quantity)" disabled />
+                    }
+                </p>
+            </dt>
+            <dt>
+                <br />
+                @Html.DisplayNameFor(m => m.Description)
+            </dt>
+            <dd>
+                @*@Html.TextBoxFor(m => m.Description)*@
+                <input id="Description" name="Description" class="form-control" type="text" value="@Html.DisplayFor(x => x.Description)" disabled />
+            </dd>
+        </dl>
+    </form>
+</div>

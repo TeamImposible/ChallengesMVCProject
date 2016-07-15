@@ -1,4 +1,5 @@
 ﻿@model Challenger.Models.UserProfileViewModel
+@using Challenger.DataLayer
 
 @using Microsoft.AspNet.Identity
 
@@ -26,18 +27,19 @@
                 <div>
                     @if (!(@Html.DisplayFor(model => model.FullName).ToString() == User.Identity.Name) && User.Identity.IsAuthenticated)
                     {
-                        <button class="btn btn-success">Challenge</button>
+                        <button class="btn btn-success">@Html.ActionLink("Challenge", "Redirect", new { id = Model.FullName})</button>
                     }
                 </div>
             </div>
-            <div class="col-sm-4">
-                <h3><b>LEVEL @Html.DisplayFor(model => model.CurrentLevel)</b></h3>
+            <div class="col-sm-4" id="level-container">
+                <img alt="Level" src="~/Icons/icon_star.png" id="level_img">
+                <h3 id="level-text"><b>@Html.DisplayFor(model => model.CurrentLevel)</b></h3>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
+        <div class="container" id="description-container">
+            <div>
                 <p>
-                    Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.
+                    @Html.DisplayFor(model => model.Description)
                 </p>
             </div>
         </div>
@@ -73,12 +75,37 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Assignee)
+                                    @Html.ActionLink(item.Challenger, "OtherIndex", "UserProfile", new { username = item.Challenger }, new { @class = "username" })
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Type)
                                 </td>
                                 <th>
+                                    @if (item.Status == Task.ChallengeStatus.Accept)
+                                    {
+
+                                        <img src="~/Icons/Taken.png" id="input_img">
+                                    }
+                                    @if (item.Status == Task.ChallengeStatus.InProcess)
+                                    {
+
+                                        <img src="~/Icons/InProgress.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.Sent)
+                                    {
+
+                                        <img src="~/Icons/Created.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.Decline)
+                                    {
+
+                                        <img src="~/Icons/Declined.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.Done)
+                                    {
+
+                                        <img src="~/Icons/Done.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.Expired)
+                                    {
+
+                                        <img src="~/Icons/Expired.png" id="input_img"> }
                                     @Html.DisplayFor(modelItem => item.Status)
                                 </th>
                                 <td>
@@ -115,12 +142,41 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Assignee)
+                                    @Html.ActionLink(item.Assignee, "OtherIndex", "UserProfile", new { username = item.Assignee }, new { @class = "username" })
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Type)
                                 </td>
                                 <th>
+                                    @if (item.Status == Task.ChallengeStatus.Accept)
+                                    {
+
+                                        <img src="~/Icons/Taken.png" id="input_img">
+                                    }
+                                    @if (item.Status == Task.ChallengeStatus.InProcess)
+                                    {
+
+                                        <img src="~/Icons/InProgress.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.Sent)
+                                    {
+
+                                        <img src="~/Icons/Created.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.Decline)
+                                    {
+
+                                        <img src="~/Icons/Declined.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.Done)
+                                    {
+
+                                        <img src="~/Icons/Done.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.Expired)
+                                    {
+
+                                        <img src="~/Icons/Expired.png" id="input_img"> }
+                                    @if (item.Status == Task.ChallengeStatus.InProcess)
+                                    {
+
+                                        <img src="~/Icons/InProgress.png" id="input_img"> }
                                     @Html.DisplayFor(modelItem => item.Status)
                                 </th>
                                 <td>
@@ -133,49 +189,6 @@
 
                 </div>
             </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="container">
-    <!-- Trigger the modal with a button -->
-    <!-- Modal -->
-    <div class="modal fade" id="settingsModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div id="settingsTabs">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <ul>
-                            <li><a href="#settingsTabs-1">Change Avatar</a></li>
-                            <li><a href="#settingsTabs-2">Change Password</a></li>
-                            <li><a href="#settingsTabs-3">Change Description</a></li>
-                        </ul>
-                    </div>
-                    <div class="modal-body">
-                        <div id="settingsTabs-1">
-                            <p>fklfdsjklfdsjlksfakl;fdskl</p>
-                        </div>
-                        <div id="settingsTabs-2">
-                            <p>asdsadsadadsdsaadsdsa</p>
-                        </div>
-                        <div id="settingsTabs-3">
-                            <p>laskjdklsajkldsasjdsalkdjaskladsjklads</p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-                    </div>
-                </div>
-                
-                
-                
-            </div>
-
         </div>
     </div>
 

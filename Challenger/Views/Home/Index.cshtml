@@ -31,22 +31,73 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Challenger)
+                    @Html.ActionLink(item.Challenger, "OtherIndex", "UserProfile", new { username = item.Challenger }, new { @class = "username" })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Assignee)
+                    @Html.ActionLink(item.Assignee, "OtherIndex", "UserProfile", new { username = item.Assignee }, new { @class = "username" })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @if (item.Assignee != User.Identity.Name || item.Status == Task.ChallengeStatus.Done
+                                                            || item.Status == Task.ChallengeStatus.Expired
+                                                            || item.Status == Task.ChallengeStatus.Decline)
+                    {
+                        @Html.ActionLink(item.Title, "Details", "Challenge", new { id = item.ID }, new { @class = "username" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink(item.Title, "UpdateChallenge", "Challenge", new { id = item.ID }, new { @class = "username" })
+                    }
+                    
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <th>
+                    @if (item.Status == Task.ChallengeStatus.Accept)
+                    {
+
+                        <img src="~/Icons/Taken.png" id="input_img">
+
+                    }
+                    @if (item.Status == Task.ChallengeStatus.Sent)
+                    {
+
+                        <img src="~/Icons/Created.png" id="input_img">
+
+                    }
+                    @if (item.Status == Task.ChallengeStatus.Decline)
+                    {
+
+                        <img src="~/Icons/Declined.png" id="input_img">
+
+                    }
+                    @if (item.Status == Task.ChallengeStatus.Done)
+                    {
+
+                        <img src="~/Icons/Done.png" id="input_img">
+
+                    }
+                    @if (item.Status == Task.ChallengeStatus.Expired)
+                    {
+
+                        <img src="~/Icons/Expired.png" id="input_img">
+
+                    }
+                    @if (item.Status == Task.ChallengeStatus.InProcess)
+                    {
+
+                        <img src="~/Icons/InProgress.png" id="input_img">
+
+                    }
                     @Html.DisplayFor(modelItem => item.Status)
                 </th>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DueDate)
+                    @if (item.DueDate != null)
+                    {
+                        <img alt="Level" src="~/Icons/time.png" id="input_img">
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                    }
+                    
                 </td>
             </tr>
         }

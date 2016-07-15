@@ -14,7 +14,6 @@ namespace Challenger.DataLayer
         [Required]
         public int Level { get; set; }
 
-
         public string Description { get; set; }
 
 
@@ -38,6 +37,26 @@ namespace Challenger.DataLayer
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public void CompleteChallenge()
+        {
+            CompletedChallenges++;
+            int level = 1;
+            int firstNum = 1;
+            int secondNum = 2;
+            while (true)
+            {
+                if (CompletedChallenges < firstNum)
+                {
+                    this.Level = level;
+                    return;
+                }
+                var swap = firstNum + secondNum;
+                firstNum = secondNum;
+                secondNum = swap;
+                level++;
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Challenger.Controllers
         {
             ManyModels models = new ManyModels();
             models.Users = new List<RankingViewModel>();
-            foreach (var item in context.Users.OrderBy(x => x.CompletedChallenges).ThenBy(x => x.UserName))
+            foreach (var item in context.Users.OrderByDescending(x => x.CompletedChallenges).ThenBy(x => x.UserName))
             {
                 models.Users.Add(new RankingViewModel()
                 {

@@ -284,6 +284,18 @@
     <Compile Include="Migrations\201607121213327_NotificationMigration.Designer.cs">
       <DependentUpon>201607121213327_NotificationMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607131520340_Notifications.cs" />
+    <Compile Include="Migrations\201607131520340_Notifications.Designer.cs">
+      <DependentUpon>201607131520340_Notifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607131535050_NotificationsFinal.cs" />
+    <Compile Include="Migrations\201607131535050_NotificationsFinal.Designer.cs">
+      <DependentUpon>201607131535050_NotificationsFinal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607131545120_NotificationsFinal1.cs" />
+    <Compile Include="Migrations\201607131545120_NotificationsFinal1.Designer.cs">
+      <DependentUpon>201607131545120_NotificationsFinal1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ChallengeViewModels.cs" />
@@ -301,6 +313,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Icons\BronzeStar.png" />
+    <Content Include="Icons\checkbox.png" />
+    <Content Include="Icons\Created.png" />
+    <Content Include="Icons\Declined.png" />
+    <Content Include="Icons\Done.png" />
+    <Content Include="Icons\Expired.png" />
+    <Content Include="Icons\GoldStar.png" />
+    <Content Include="Icons\home.png" />
+    <Content Include="Icons\icon_star.png" />
+    <Content Include="Icons\InProgress.png" />
+    <Content Include="Icons\SilverStar.png" />
+    <Content Include="Icons\Taken.png" />
+    <Content Include="Icons\time.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -347,6 +372,7 @@
     <Content Include="Views\Ranking\Index.cshtml" />
     <Content Include="Views\Challenge\UpdateChallenge.cshtml" />
     <Content Include="Views\UserProfile\OtherIndex.cshtml" />
+    <Content Include="Views\Challenge\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -395,6 +421,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607121213327_NotificationMigration.resx">
       <DependentUpon>201607121213327_NotificationMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607131520340_Notifications.resx">
+      <DependentUpon>201607131520340_Notifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607131535050_NotificationsFinal.resx">
+      <DependentUpon>201607131535050_NotificationsFinal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607131545120_NotificationsFinal1.resx">
+      <DependentUpon>201607131545120_NotificationsFinal1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

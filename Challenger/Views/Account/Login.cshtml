@@ -2,57 +2,53 @@
 @using Challenger.Models
 @model LoginViewModel
 @{
-	ViewBag.Title = "Log in";
+    ViewBag.Title = "Log in";
 }
 
-
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-	<div class="col-md-8">
-		<section id="loginForm">
-			@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div id="rcorners6" style="align-content:center" class="center row">
+    <div class="col-md-10">
+        <section id="loginForm">
+            <h2 class="col-md-offset-4 col-md-7"><b>LOG IN</b></h2>
+            
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-				@Html.AntiForgeryToken()
-				<h4>Use a local account to log in.</h4>
-				<hr />
-				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-				<div class="form-group">
-					@Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
-					<div class="col-md-10">
-						@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-						@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
-					</div>
-				</div>
-				<div class="form-group">
-					@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-					<div class="col-md-10">
-						@Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-						<p></p>
-						@Html.Recaptcha()
-						@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-10">
-						<div class="checkbox">
-							@Html.CheckBoxFor(m => m.RememberMe)
-							@Html.LabelFor(m => m.RememberMe)
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-10">
-						<input type="submit" value="Log in" class="btn btn-default" />
-					</div>
-				</div>
-				<p>
-					@Html.ActionLink("Don't have an account?", "Register")
-				</p>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <input class="form-control col-md-offset-3 col-md-7" placeholder="Username" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" type="text" value="">
+
+                </div>
+                <div class="form-group">
+                    <input class="form-control col-md-offset-3 col-md-7" placeholder="Password" data-val="true" data-val-required="The Password field is required." id="Password" name="Password" type="password">
+                    <p></p>
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-7">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-7">
+                        <input type="submit" value="Log in" class="btn btn-block btn-lg btn-primary" />
+                    </div>
+                </div>
+                <p class="login col-md-offset-4 col-md-7">
+                    Don't have an account?
+                <p class="login col-md-offset-4 col-md-7">
+                    @Html.ActionLink(" Click here to register?", "Register")
+            </p>
+            </p>
             }
-		</section>
-	</div>
+        </section>
+    </div>
 </div>
 
 @section Scripts {
-	@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
 }

@@ -16,7 +16,8 @@ namespace Challenger.Controllers
         public IEnumerable<NotificationViewModels> Get()
         {
             List<NotificationViewModels> c = new List<NotificationViewModels>();
-            foreach (var notification in context.Notifications.Where(x => x.Recipient.UserName == User.Identity.Name))
+            var list = context.Notifications.Where(x => x.Recipient.UserName == User.Identity.Name).OrderByDescending(x => x.CreationDate).ToList();
+            foreach (var notification in list)
             {
                 string message = "";
                 if (notification.Action == Notification.NotificationAction.Accepted)
@@ -34,7 +35,7 @@ namespace Challenger.Controllers
                 else if (notification.Action == Notification.NotificationAction.Sent)
                     message = string.Format("{0}, challenged you.", notification.Sender.UserName);
 
-                NotificationViewModels b = new NotificationViewModels() { message = message };
+                NotificationViewModels b = new NotificationViewModels() { message = message, ChallengeId = notification.ChallengeID };
                 c.Add(b);
             }
             return c;

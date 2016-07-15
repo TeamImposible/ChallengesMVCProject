@@ -2,50 +2,78 @@
 @model Challenger.Models.CreateChallengeViewModel
 
 @Scripts.Render("~/bundles/jquery")
-<div>
-    <form method="post" action="@Url.Action("Create", "Challenge")">
-        <dl>
-            <dt>
-                Challenger
-                <input id="Challenger" name="Challenger" type="text" value="@User.Identity.Name" disabled />
-                <input id="Challenger" name="Challenger" type="text" value="@User.Identity.Name" hidden />
-                Type
-                <select data-val="true" data-val-required="The Type field is required." id="Type" name="Type" onclick="if (this.selectedIndex == 0 || typeof (this.selectedIndex) == 'undefined') document.getElementById('Quantity').style.visibility = 'hidden'; else document.getElementById('Quantity').style.visibility = 'visible';">
-                    <option selected="selected" value="0">OneTime</option>
-                    <option value="1">StepByStep</option>
-                    <option value="2">Quantity</option>
-                </select>
+<div class="row">
+	@try
+	{
+		if (Model.Failed == true)
+		 {
+			 <p class="invalid">Some data was invalid</p>
+		}
 
-                @Html.DisplayNameFor(m => m.DueDate)
-                @Html.TextBoxFor(m => m.DueDate)
-            </dt>
-            <dt>
-                @Html.DisplayNameFor(m => m.Assignee)
-                @Html.TextBoxFor(m => m.Assignee)
-            </dt>
-            <dt id="">
-                @Html.DisplayNameFor(m => m.Title)
-                @Html.TextBoxFor(m => m.Title)
+	}
+	catch(Exception) {}
+	<form method="post" action="@Url.Action("Create", "Challenge")">
 
-                <p id="Quantity">
-                    Quantity
-                    <input data-val="true" data-val-number="The field Quantity must be a number." id="Quantity" name="Quantity" type="text" value="" />
-                </p>
-            </dt>
-            <dt>
-                @Html.DisplayNameFor(m => m.Description)
-            </dt>
-            <dd>
-                @Html.TextBoxFor(m => m.Description)
-            </dd>
-        </dl>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
+		<div class="center col-md-7">
+			<br>
+			Challenger
+			<input class="form-control" id="Challenger" name="Challenger" type="text" value="@User.Identity.Name" disabled/>
+			<input id="Challenger" name="Challenger" type="text" value="@User.Identity.Name" hidden/>
+			<br/>
+			Assignee
+			@try
+			{
+				if (Model.Assignee != null)
+				{
+					<input class="form-control" id="Challenger" name="Challenger" type="text" value="@Model.Assignee" disabled/>
+				}
+			}
+			catch (Exception)
+			{
+
+				<input class="form-control" id="Assignee" name="Assignee" type="text" value="" />
+			}
+			<br/>
+			Title
+			<input class="form-control" id="Title" name="Title" type="text" value="">
+			<br/>
+			Type
+			<select data-val="true" class="form-control" data-val-required="The Type field is required." id="Type"
+			        name="Type" onclick="if (this
+	.selectedIndex ==	0 ||	typeof (this
+		.selectedIndex) ==	'undefined') document.getElementById('Quantity').style.visibility = 'hidden';
+else document.getElementById('Quantity').style.visibility = 'visible';">
+				<option selected="selected" value="0">OneTime</option>
+				<option value="1">StepByStep</option>
+				<option value="2">Quantity</option>
+			</select>
+			<br/>
+			<p id="Quantity">
+				Quantity
+				<input class="form-control" data-val="true" data-val-number="The field Quantity must be a number." id="Quantity" name="Quantity" type="text" value="">
+			</p>
+			<br/>
+		</div>
+		<div class="test col-md-offset-6">
+			Due Date
+			<input placeholder="mm-dd-yyyy" class="form-control" data-val="true" data-val-date="The field DueDate must be a date." id="DueDate"
+			       name="DueDate" type="text" value="">
+			<br/>
+			Description
+			<textarea rows="9" cols="10" class="siz form-control" id="Description" name="Description" type="text" value=""></textarea>
+			<br/>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-group-lg btn-success">Submit</button>
+		</div>
+	</form>
 </div>
 
 <script>
-    $(function (e) {
-        document.getElementById('Quantity').style.visibility = 'hidden';
-    });
+	$(function (e) {
+		document.getElementById('Quantity').style.visibility = 'hidden';
+	});
+
+	function SubmitButton() {
+	    window.alert("Challenge Created!");
+	}
 </script>
